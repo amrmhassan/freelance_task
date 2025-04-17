@@ -7,6 +7,7 @@ import 'package:freelance_task/features/products/data/repo/product_repo.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 List<String> _categoriesCache = [];
+List<ProductModel> _productsCache = [];
 
 class ProductRepoImpl implements ProductRepo {
   final ApiConsumer api;
@@ -34,6 +35,15 @@ class ProductRepoImpl implements ProductRepo {
     }
   }
 
+  Future<List<ProductModel>> _getAllProducts() async {
+    if (_productsCache.isNotEmpty) return _productsCache;
+    final response = await api.get(Endpoints.products) as List;
+    List<ProductModel> allProducts =
+        response.map((json) => ProductModel.fromJson(json)).toList();
+    _productsCache = allProducts;
+    return allProducts;
+  }
+
   @override
   Future<Either<Failure, List<ProductModel>>> getProducts({
     List<String> categories = const [],
@@ -45,9 +55,7 @@ class ProductRepoImpl implements ProductRepo {
         return Left(NetworkFailure());
       }
 
-      final response = await api.get(Endpoints.products) as List;
-      List<ProductModel> allProducts =
-          response.map((json) => ProductModel.fromJson(json)).toList();
+      List<ProductModel> allProducts = await _getAllProducts();
 
       List<ProductModel> filteredProducts =
           allProducts.where((product) {
