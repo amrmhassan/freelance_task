@@ -18,10 +18,14 @@ class CategoryWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          border: active ? Border.all(width: 1, color: Colors.green) : null,
+          border: Border.all(width: 1, color: Colors.green),
+          color: active ? Colors.green : null,
         ),
 
-        child: Text(category),
+        child: Text(
+          category,
+          style: TextStyle(color: active ? Colors.white : null),
+        ),
       ),
     );
   }
