@@ -39,7 +39,7 @@ class FilterModal extends StatelessWidget {
               ),
               HeightSpace(20),
               RangeSlider(
-                divisions: 1000,
+                divisions: 100,
                 min: 0,
                 max: 1000,
                 values: cubitWatch.priceValues,
