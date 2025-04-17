@@ -19,7 +19,7 @@ class ProductRepoImpl implements ProductRepo {
   Future<Either<Failure, List<String>>> getCategories() async {
     try {
       if (!await _hasConnection) {
-        return const Left(NetworkFailure());
+        return Left(NetworkFailure());
       }
 
       final response = await api.get(Endpoints.categories);
@@ -31,21 +31,21 @@ class ProductRepoImpl implements ProductRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getFilteredProducts({
+  Future<Either<Failure, List<ProductModel>>> getProducts({
     List<String> categories = const [],
     double minPrice = 0,
     double maxPrice = double.infinity,
   }) async {
     try {
       if (!await _hasConnection) {
-        return const Left(NetworkFailure());
+        return Left(NetworkFailure());
       }
 
-      final response = await api.get(Endpoints.products);
-      final allProducts =
+      final response = await api.get(Endpoints.products) as List;
+      List<ProductModel> allProducts =
           response.map((json) => ProductModel.fromJson(json)).toList();
 
-      final filteredProducts =
+      List<ProductModel> filteredProducts =
           allProducts.where((product) {
             final matchesCategory =
                 categories.isEmpty || categories.contains(product.category);
@@ -55,23 +55,6 @@ class ProductRepoImpl implements ProductRepo {
           }).toList();
 
       return Right(filteredProducts);
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<ProductModel>>> getProducts() async {
-    try {
-      if (!await _hasConnection) {
-        return const Left(NetworkFailure());
-      }
-
-      final response = await api.get(Endpoints.products);
-      final products =
-          response.map((json) => ProductModel.fromJson(json)).toList();
-
-      return Right(products);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

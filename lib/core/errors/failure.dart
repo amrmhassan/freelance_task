@@ -1,16 +1,22 @@
+import 'package:flutter/foundation.dart';
+
 abstract class Failure {
   final String message;
-  const Failure([this.message = '']);
+  Failure([this.message = '']) {
+    if (kDebugMode) {
+      throw message;
+    }
+  }
 }
 
 class ServerFailure extends Failure {
-  const ServerFailure([super.message]);
+  ServerFailure([super.message]);
 }
 
 class NetworkFailure extends Failure {
-  const NetworkFailure() : super('No internet connection');
+  NetworkFailure() : super('No internet connection');
 }
 
 class UnexpectedFailure extends Failure {
-  const UnexpectedFailure([super.message]);
+  UnexpectedFailure([super.message]);
 }
