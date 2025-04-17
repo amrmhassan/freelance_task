@@ -14,14 +14,14 @@ class ProductRepoImpl implements ProductRepo {
   final InternetConnectionChecker _connectionChecker;
 
   ProductRepoImpl(this.api)
-    : _connectionChecker = InternetConnectionChecker.createInstance();
+    : _connectionChecker = InternetConnectionChecker.instance;
 
   Future<bool> get _hasConnection => _connectionChecker.hasConnection;
 
   @override
   Future<Either<Failure, List<String>>> getCategories() async {
     try {
-      if (_categoriesCache.isNotEmpty) return right(_categoriesCache);
+      if (_categoriesCache.isNotEmpty) return Right(_categoriesCache);
       if (!await _hasConnection) {
         return Left(NetworkFailure());
       }
@@ -37,6 +37,9 @@ class ProductRepoImpl implements ProductRepo {
 
   Future<List<ProductModel>> _getAllProducts() async {
     if (_productsCache.isNotEmpty) return _productsCache;
+    if (!await _hasConnection) {
+      return throw NetworkFailure();
+    }
     final response = await api.get(Endpoints.products) as List;
     List<ProductModel> allProducts =
         response.map((json) => ProductModel.fromJson(json)).toList();
@@ -51,10 +54,6 @@ class ProductRepoImpl implements ProductRepo {
     required double maxPrice,
   }) async {
     try {
-      if (!await _hasConnection) {
-        return Left(NetworkFailure());
-      }
-
       List<ProductModel> allProducts = await _getAllProducts();
 
       List<ProductModel> filteredProducts =
@@ -68,6 +67,7 @@ class ProductRepoImpl implements ProductRepo {
 
       return Right(filteredProducts);
     } catch (e) {
+      if (e is Failure) return Left(e);
       return Left(ServerFailure(e.toString()));
     }
   }

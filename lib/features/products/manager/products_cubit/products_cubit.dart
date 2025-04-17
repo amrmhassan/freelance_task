@@ -62,7 +62,8 @@ class ProductsCubit extends Cubit<ProductsState> {
       emit(ProductsSuccess(stateCopy.products));
     } else if (stateCopy is ProductsError) {
       emit(ProductsError(stateCopy.errMessage));
+    } else {
+      throw UnimplementedError();
     }
-    throw UnimplementedError();
   }
 }
