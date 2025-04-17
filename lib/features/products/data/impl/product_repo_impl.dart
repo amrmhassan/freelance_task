@@ -22,8 +22,8 @@ class ProductRepoImpl implements ProductRepo {
         return Left(NetworkFailure());
       }
 
-      final response = await api.get(Endpoints.categories);
-      final categories = response.map((e) => e.toString()).toList();
+      final response = await api.get(Endpoints.categories) as List;
+      List<String> categories = response.map((e) => e.toString()).toList();
       return Right(categories);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -33,8 +33,8 @@ class ProductRepoImpl implements ProductRepo {
   @override
   Future<Either<Failure, List<ProductModel>>> getProducts({
     List<String> categories = const [],
-    double minPrice = 0,
-    double maxPrice = double.infinity,
+    required double minPrice,
+    required double maxPrice,
   }) async {
     try {
       if (!await _hasConnection) {

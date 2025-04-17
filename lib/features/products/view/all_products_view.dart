@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_task/core/services.dart';
+import 'package:freelance_task/features/products/data/impl/product_repo_impl.dart';
+import 'package:freelance_task/features/products/manager/categories_cubit/categories_cubit.dart';
 import 'package:freelance_task/features/products/manager/products_cubit/products_cubit.dart';
+import 'package:freelance_task/features/products/view/widgets/filter_modal.dart';
 import 'package:freelance_task/features/products/view/widgets/product_item_widget.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -20,7 +24,18 @@ class _ProductListScreenState extends State<ProductListScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),
-            onPressed: () => Scaffold.of(context).openEndDrawer(),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return BlocProvider(
+                    create:
+                        (context) => CategoriesCubit(getIt<ProductRepoImpl>()),
+                    child: FilterModal(),
+                  );
+                },
+              );
+            },
           ),
         ],
       ),

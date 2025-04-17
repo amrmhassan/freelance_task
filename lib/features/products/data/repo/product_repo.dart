@@ -6,7 +6,7 @@ abstract class ProductRepo {
   Future<Either<Failure, List<String>>> getCategories();
   Future<Either<Failure, List<ProductModel>>> getProducts({
     List<String> categories = const [],
-    double minPrice = 0,
-    double maxPrice = double.infinity,
+    required double minPrice,
+    required double maxPrice,
   });
 }
