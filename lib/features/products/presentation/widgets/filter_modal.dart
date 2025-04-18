@@ -17,7 +17,7 @@ class FilterModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<ProductBloc>();
+    var bloc = context.read<ProductBloc>();
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         if (state.isLoading && state.categories.isEmpty) {
@@ -61,7 +61,7 @@ class FilterModal extends StatelessWidget {
               min: 0,
               max: 1000,
               values: RangeValues(state.minPrice, state.maxPrice),
-              onChanged: (v) => cubit.add(UpdatePriceRange(v)),
+              onChanged: (v) => bloc.add(UpdatePriceRange(v)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -76,7 +76,7 @@ class FilterModal extends StatelessWidget {
             HeightSpace(20),
             ElevatedButton(
               onPressed: () {
-                cubit.add(LoadProducts());
+                bloc.add(LoadProducts());
                 Navigator.pop(context);
               },
               child: Text('Apply'),
