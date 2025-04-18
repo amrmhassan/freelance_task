@@ -44,6 +44,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
           if (state.isLoading && state.products.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
+          if (state.products.isEmpty) {
+            return Center(child: Text('No products in this filter'));
+          }
           if (state.error != null && state.products.isEmpty) {
             return Center(
               child: Column(

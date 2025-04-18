@@ -19,7 +19,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     LoadProducts event,
     Emitter<ProductState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, error: null));
     final res = await _repo.getProducts(
       categories: state.selectedCategories,
       minPrice: state.minPrice,
@@ -35,7 +35,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     LoadCategories event,
     Emitter<ProductState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, error: null));
     final result = await _repo.getCategories();
     result.fold(
       (failure) =>
