@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_task/core/services.dart';
-import 'package:freelance_task/features/products/data/repositories/product_repo_impl.dart';
-import 'package:freelance_task/features/products/manager/products_cubit/products_cubit.dart';
+import 'package:freelance_task/features/products/presentation/bloc/product_bloc.dart';
 import 'package:freelance_task/features/products/presentation/screens/all_products_screen.dart';
 
 void main() {
@@ -18,11 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => ProductsCubit(getIt<ProductRepoImpl>()),
-        ),
-      ],
+      providers: [BlocProvider(create: (context) => getIt<ProductBloc>())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Freelance Task',

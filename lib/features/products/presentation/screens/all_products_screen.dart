@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freelance_task/core/services.dart';
-import 'package:freelance_task/features/products/data/repositories/product_repo_impl.dart';
-import 'package:freelance_task/features/products/manager/categories_cubit/categories_cubit.dart';
-import 'package:freelance_task/features/products/manager/products_cubit/products_cubit.dart';
+import 'package:freelance_task/features/products/presentation/bloc/product_bloc.dart';
+import 'package:freelance_task/features/products/presentation/bloc/product_event.dart';
+import 'package:freelance_task/features/products/presentation/bloc/product_state.dart';
 import 'package:freelance_task/features/products/presentation/widgets/filter_modal.dart';
 import 'package:freelance_task/features/products/presentation/widgets/product_item_widget.dart';
 
@@ -15,9 +14,14 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+  void _loadInitialData() {
+    final bloc = context.read<ProductBloc>();
+    bloc.add(const LoadProducts());
+    bloc.add(const LoadCategories());
+  }
+
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<ProductsCubit>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Products'),
@@ -28,32 +32,27 @@ class _ProductListScreenState extends State<ProductListScreen> {
               showModalBottomSheet(
                 context: context,
                 builder: (context) {
-                  return BlocProvider(
-                    create:
-                        (context) => CategoriesCubit(getIt<ProductRepoImpl>()),
-                    child: FilterModal(),
-                  );
+                  return FilterModal();
                 },
               );
             },
           ),
         ],
       ),
-      body: BlocBuilder<ProductsCubit, ProductsState>(
+      body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
-          if (state is ProductsLoading) {
+          if (state.isLoading && state.products.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
-
-          if (state is ProductsError) {
+          if (state.error != null && state.products.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(state.errMessage),
+                  Text(state.error!),
                   const SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: cubit.refresh,
+                    onPressed: _loadInitialData,
                     child: const Text('Retry'),
                   ),
                 ],
@@ -61,32 +60,27 @@ class _ProductListScreenState extends State<ProductListScreen> {
             );
           }
 
-          if (state is ProductsSuccess) {
-            return Stack(
-              children: [
-                RefreshIndicator(
-                  onRefresh: () async => cubit.refresh(),
-                  child: GridView.builder(
-                    padding: const EdgeInsets.all(16),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.75,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                        ),
-                    itemCount: state.products.length,
-                    itemBuilder: (context, index) {
-                      final product = state.products[index];
-                      return ProductItemWidget(product: product);
-                    },
+          return Stack(
+            children: [
+              RefreshIndicator(
+                onRefresh: () async => _loadInitialData(),
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.75,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
                   ),
+                  itemCount: state.products.length,
+                  itemBuilder: (context, index) {
+                    final product = state.products[index];
+                    return ProductItemWidget(product: product);
+                  },
                 ),
-              ],
-            );
-          }
-
-          return Text(state.runtimeType.toString());
+              ),
+            ],
+          );
         },
       ),
     );

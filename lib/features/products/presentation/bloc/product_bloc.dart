@@ -10,6 +10,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<LoadCategories>(_loadCategories);
     on<ToggleSelectCategory>(_toggleCategory);
     on<UpdatePriceRange>(_updatePriceRange);
+    add(LoadProducts());
   }
 
   Future<void> _loadProducts(
