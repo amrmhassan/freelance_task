@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freelance_task/features/products/data/models/product_model.dart';
-import 'package:freelance_task/features/products/data/repo/product_repo.dart';
+import 'package:freelance_task/features/products/domain/enities/product_model.dart';
+import 'package:freelance_task/features/products/domain/repositories/product_repo.dart';
 part 'products_state.dart';
 
 //? i could have separated the filter logic in another cubit but to save time i just put it in this cubit

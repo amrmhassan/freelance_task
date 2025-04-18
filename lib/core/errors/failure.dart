@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:freelance_task/utils/fast_access.dart';
 
 abstract class Failure {
   final String message;
   Failure([this.message = '']) {
     if (kDebugMode) {
-      throw message;
+      logger.e(message);
     }
   }
 }

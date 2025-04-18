@@ -1,3 +1,3 @@
-class APIConstants {
+class URLs {
   static String baseUrl = 'https://fakestoreapi.com';
 }

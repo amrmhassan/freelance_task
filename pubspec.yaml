@@ -17,6 +17,7 @@ dependencies:
   dartz: ^0.10.1
   pretty_dio_logger: ^1.4.0
   internet_connection_checker: ^3.0.1
+  logger: ^2.5.0
 
 dev_dependencies:
   flutter_test:

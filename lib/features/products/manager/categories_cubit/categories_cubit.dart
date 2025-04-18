@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freelance_task/features/products/data/repo/product_repo.dart';
+import 'package:freelance_task/features/products/domain/repositories/product_repo.dart';
 part 'categories_state.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {

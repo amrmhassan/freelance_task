@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:freelance_task/constants/api.dart';
+import 'package:freelance_task/constants/urls.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'api_consumer.dart';
 
@@ -7,7 +7,7 @@ class DioConsumer extends ApiConsumer {
   final Dio dio;
 
   DioConsumer({required this.dio}) {
-    dio.options.baseUrl = APIConstants.baseUrl;
+    dio.options.baseUrl = URLs.baseUrl;
     dio.options.headers['Accept'] = 'application/json';
     dio.options.headers['Content-Type'] = 'application/json';
     dio.options.headers['accept-language'] = 'ar';
