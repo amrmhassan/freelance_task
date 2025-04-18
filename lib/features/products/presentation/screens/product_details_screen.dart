@@ -76,7 +76,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     label: Text(product.category),
                     backgroundColor: Theme.of(
                       context,
-                    ).primaryColor.withOpacity(0.1),
+                    ).primaryColor.withValues(alpha: .1),
                   ),
                   const SizedBox(height: 16),
                   Text(
