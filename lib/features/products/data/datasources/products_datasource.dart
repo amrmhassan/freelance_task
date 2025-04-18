@@ -1,6 +1,6 @@
 import 'package:freelance_task/constants/endpoints.dart';
 import 'package:freelance_task/core/api/dio_consumer.dart';
-import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
+import 'package:freelance_task/features/products/domain/entities/product_entity.dart';
 
 class ProductsDatasource {
   final DioConsumer _api;

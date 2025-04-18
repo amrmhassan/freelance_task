@@ -1,4 +1,4 @@
-import 'package:freelance_task/features/products/domain/enities/product_rating.dart';
+import 'package:freelance_task/features/products/domain/entities/product_rating.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_entity.g.dart';

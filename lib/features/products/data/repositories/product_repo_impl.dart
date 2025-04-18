@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:freelance_task/core/errors/failure.dart';
 import 'package:freelance_task/features/products/data/datasources/products_datasource.dart';
-import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
+import 'package:freelance_task/features/products/domain/entities/product_entity.dart';
 import 'package:freelance_task/features/products/domain/repositories/product_repo.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 

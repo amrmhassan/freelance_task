@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_task/core/routing/app_router.dart';
 import 'package:freelance_task/core/services.dart';
 import 'package:freelance_task/features/products/presentation/bloc/product_bloc.dart';
-import 'package:freelance_task/features/products/presentation/screens/all_products_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,13 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [BlocProvider(create: (context) => getIt<ProductBloc>())],
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Freelance Task',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: ProductListScreen(),
+        routerConfig: AppRouter.router,
       ),
     );
   }

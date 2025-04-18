@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
+import 'package:freelance_task/features/products/domain/entities/product_entity.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final ProductEntity product;

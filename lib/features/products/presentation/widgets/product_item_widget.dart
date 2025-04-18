@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
-import 'package:freelance_task/features/products/presentation/screens/product_details_screen.dart';
+import 'package:freelance_task/core/routing/routes_keys.dart';
+import 'package:freelance_task/features/products/domain/entities/product_entity.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final ProductEntity product;
@@ -14,12 +15,9 @@ class ProductItemWidget extends StatelessWidget {
       elevation: 2,
       child: InkWell(
         onTap: () {
-          Navigator.push(
+          GoRouter.of(
             context,
-            MaterialPageRoute(
-              builder: (context) => ProductDetailsScreen(product: product),
-            ),
-          );
+          ).push(RoutesKeys.kProductDetails, extra: {'product': product});
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
