@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_task/core/services.dart';
 import 'package:freelance_task/features/products/data/repositories/product_repo_impl.dart';
 import 'package:freelance_task/features/products/manager/products_cubit/products_cubit.dart';
-import 'package:freelance_task/features/products/view/all_products_view.dart';
+import 'package:freelance_task/features/products/presentation/screens/all_products_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

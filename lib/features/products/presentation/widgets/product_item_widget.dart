@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_task/features/products/domain/enities/product_model.dart';
-import 'package:freelance_task/features/products/view/product_details_screen.dart';
+import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
+import 'package:freelance_task/features/products/presentation/screens/product_details_screen.dart';
 
 class ProductItemWidget extends StatelessWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const ProductItemWidget({super.key, required this.product});
 

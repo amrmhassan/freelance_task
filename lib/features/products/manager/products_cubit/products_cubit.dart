@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freelance_task/features/products/domain/enities/product_model.dart';
+import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
 import 'package:freelance_task/features/products/domain/repositories/product_repo.dart';
 part 'products_state.dart';
 

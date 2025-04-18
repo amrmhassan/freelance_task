@@ -1,11 +1,11 @@
 import 'package:freelance_task/constants/endpoints.dart';
 import 'package:freelance_task/core/api/dio_consumer.dart';
-import 'package:freelance_task/features/products/domain/enities/product_model.dart';
+import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
 
 class ProductsDatasource {
   final DioConsumer _api;
   // caching
-  List<ProductModel>? _cachedProducts;
+  List<ProductEntity>? _cachedProducts;
   List<String>? _cachedCategories;
   static const cacheDuration = Duration(minutes: 5);
   DateTime? _lastProductsFetch;
@@ -13,7 +13,7 @@ class ProductsDatasource {
 
   ProductsDatasource(this._api);
 
-  Future<List<ProductModel>> getAllProducts() async {
+  Future<List<ProductEntity>> getAllProducts() async {
     if (_cachedProducts != null && _lastProductsFetch != null) {
       final diff = DateTime.now().difference(_lastProductsFetch!);
       if (diff < cacheDuration) {
@@ -21,19 +21,19 @@ class ProductsDatasource {
       }
     }
     final res = await _api.get(Endpoints.products) as List;
-    var models = res.map((doc) => ProductModel.fromJson(doc)).toList();
+    var models = res.map((doc) => ProductEntity.fromJson(doc)).toList();
     _cachedProducts = models;
     _lastProductsFetch = DateTime.now();
     return models;
   }
 
-  Future<List<ProductModel>> getFilteredProducts({
+  Future<List<ProductEntity>> getFilteredProducts({
     List<String> categories = const [],
     required double minPrice,
     required double maxPrice,
   }) async {
     var allProducts = await getAllProducts();
-    List<ProductModel> filteredProducts =
+    List<ProductEntity> filteredProducts =
         allProducts.where((product) {
           final matchesCategory =
               categories.isEmpty || categories.contains(product.category);

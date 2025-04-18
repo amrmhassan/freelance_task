@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_task/features/products/domain/enities/product_model.dart';
+import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const ProductDetailsScreen({super.key, required this.product});
 

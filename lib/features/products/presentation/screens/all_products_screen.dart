@@ -4,8 +4,8 @@ import 'package:freelance_task/core/services.dart';
 import 'package:freelance_task/features/products/data/repositories/product_repo_impl.dart';
 import 'package:freelance_task/features/products/manager/categories_cubit/categories_cubit.dart';
 import 'package:freelance_task/features/products/manager/products_cubit/products_cubit.dart';
-import 'package:freelance_task/features/products/view/widgets/filter_modal.dart';
-import 'package:freelance_task/features/products/view/widgets/product_item_widget.dart';
+import 'package:freelance_task/features/products/presentation/widgets/filter_modal.dart';
+import 'package:freelance_task/features/products/presentation/widgets/product_item_widget.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});

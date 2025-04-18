@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:freelance_task/core/errors/failure.dart';
 import 'package:freelance_task/features/products/data/datasources/products_datasource.dart';
-import 'package:freelance_task/features/products/domain/enities/product_model.dart';
+import 'package:freelance_task/features/products/domain/enities/product_entity.dart';
 import 'package:freelance_task/features/products/domain/repositories/product_repo.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -29,13 +29,13 @@ class ProductRepoImpl implements ProductRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getProducts({
+  Future<Either<Failure, List<ProductEntity>>> getProducts({
     List<String> categories = const [],
     required double minPrice,
     required double maxPrice,
   }) async {
     try {
-      List<ProductModel> products = await datasource.getFilteredProducts(
+      List<ProductEntity> products = await datasource.getFilteredProducts(
         minPrice: minPrice,
         maxPrice: maxPrice,
         categories: categories,

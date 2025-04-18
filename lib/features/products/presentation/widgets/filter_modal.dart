@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_task/features/products/manager/categories_cubit/categories_cubit.dart';
 import 'package:freelance_task/features/products/manager/products_cubit/products_cubit.dart';
-import 'package:freelance_task/features/products/view/widgets/category_widget.dart';
-import 'package:freelance_task/features/products/view/widgets/height_space.dart';
-import 'package:freelance_task/features/products/view/widgets/infinite_size.dart';
+import 'package:freelance_task/features/products/presentation/widgets/category_widget.dart';
+import 'package:freelance_task/features/products/presentation/widgets/height_space.dart';
+import 'package:freelance_task/features/products/presentation/widgets/infinite_size.dart';
 
 class FilterModal extends StatelessWidget {
   const FilterModal({super.key});

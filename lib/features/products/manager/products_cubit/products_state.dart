@@ -9,7 +9,7 @@ final class ProductsInitial extends ProductsState {}
 final class ProductsLoading extends ProductsState {}
 
 final class ProductsSuccess extends ProductsState {
-  final List<ProductModel> products;
+  final List<ProductEntity> products;
   const ProductsSuccess(this.products);
 }
 
